@@ -27,26 +27,49 @@ public class Bank {
         String userInputName = sc.nextLine();
 
         Customer customer = new Customer(userInputID, userInputName);
-        customers[customerIndex] = customer;
+        customers[customerIndex++] = customer;
 
         System.out.println("고객이 성공적으로 등록되었습니다.");
 
-        BankProgram.runProgram(); // static 메소드 바로 접근
+        // BankProgram.runProgram(); // static 메소드 바로 접근
     }
 
     // 고객ID가 은행에 등록되어있는지 확인하는 메소드
     public boolean existsUserId(String id){
-        for(int i = 0; i < customers.length; i++){
-            if(customers[i] == null) return true;
-            if(customers[i].getUserID().equals(id)){
-                return true;
-            }
-        }
-        return false; // 존재하지 않는 ID면 false리턴
+        return true;
+
+        // 리팩토링 중... [12-12 21:14]
+//        // 고객 정보를 순회하면서 null값이 아닌 값이 있으면 그 해당 배열의 인덱스를 저장
+//        int targetUserIndex = 0;
+//        for(int i = 0; i < customers.length; i++){
+//            if(customers[i].getUserID() != null) {
+//                targetUserIndex = i;
+//            }
+//        }
+//
+//        if(customers[targetUserIndex].getUserID().equals(id)){
+//            return true;
+//        }
+//        return false; // 존재하지 않는 ID면 false리턴
     }
 
-    // 고객 찾기 메소드 (=고객 정보 조회)
-    public void findCustomer(String id){
-
-    }
+//    // 고객 조회 메소드
+//    public void findCustomer(String id) {
+//        int targetUserIndex = 0;
+//
+//        outter: while(true){
+//            for(int i = 0; i < Account.accounts.length; i++){
+//                if(Account.accounts[i].getUserId().equals(id)) {
+//                    System.out.println("-----입력하신 ID:[" + id + "]의 고객정보를 가져옵니다-----");
+//                    targetUserIndex = i;
+//                    break outter;
+//                }
+//            }
+//            System.out.println("은행에 고객정보가 없습니다.");
+//        }
+//
+//        System.out.println("이름 : " + Account.accounts[targetUserIndex].getUserName());
+//        System.out.println("계좌 : " + Account.accounts[targetUserIndex].getUserAccount());
+//        System.out.println("잔액 : " + Account.accounts[targetUserIndex].getBalance());
+//    }
 }

@@ -10,7 +10,7 @@ public class BankProgram {
     static Scanner sc = new Scanner(System.in);;
 
     // =====Methods=====
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
         /*
         입금/출금: 계좌 번호로 계좌를 조회하여 입금하거나 출금합니다.
         잔액 조회: 계좌 번호로 현재 잔액을 조회합니다.
@@ -21,16 +21,22 @@ public class BankProgram {
         runProgram();
     }
 
-    public static void runProgram(){
+    public static void runProgram() throws Exception{
         printSystemMenu();
         System.out.print("이용하실 서비스를 입력해주세요 : ");
         moveToSystem(sc.nextInt());
     }
 
-    private static void moveToSystem(int i) {
+    private static void moveToSystem(int i) throws Exception{
         switch(i){
+//            case 0: // 테스트케이스 (고객정보조회서비스)
+//                System.out.print("조회할 고객의 ID를 입력하세요 : ");
+//                bank.findCustomer(sc.next());
+//                runProgram();
+
             case 1: // 고객 등록 (Bank 클래스)
                 bank.registerCustomer(); // 고객 등록 메소드 호출
+                runProgram();
 
 
             case 2: // 계좌 생성 (Customer 클래스)
@@ -57,6 +63,7 @@ public class BankProgram {
     private static void printSystemMenu() {
         System.out.println("\n=== 프리미엄 은행 ===");
         System.out.println("._._.[서비스 목록]._._.");
+//        System.out.println("0. 고객 조회");
         System.out.println("1. 고객 등록");
         System.out.println("2. 계좌 생성");
         System.out.println("3. 입금 하기");

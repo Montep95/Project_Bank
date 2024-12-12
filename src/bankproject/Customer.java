@@ -25,7 +25,7 @@ public class Customer {
         while(true){
             System.out.print("고객 ID 입력 : ");
 
-            // 은행에 등록된 아이디인지 확인
+            // 1) 은행에 등록된 아이디인지 확인
             boolean isBankId = bank.existsUserId(sc.nextLine()); // 고객 중복 확인 메소드 호출
             if(isBankId){
                 System.out.print("새 계좌 번호 입력 : ");
@@ -39,6 +39,22 @@ public class Customer {
             }else{
                 System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
             }
+
+            // 수정 2) 은행에 등록된 아이디인지 확인
+
+
+//            if(userID.equals(sc.next())){
+//                System.out.print("새 계좌 번호 입력 : ");
+//
+//                // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
+//                Account newAccount = new Account(userID, sc.nextLine(), 0);
+//                Account.accounts[account.getAddUserIndex()] = newAccount;
+//
+//                System.out.println("계좌가 성공적으로 생성되었습니다!");
+//                break;
+//            }else{
+//                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
+//            }
         }
     }
 

@@ -44,12 +44,12 @@ public class Account {
                     }
                 }
 
-                // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
+                // {입금 고객 아이디, 입금 계좌번호, 입금할 금액} 을 Account에 전달
                 Account newAccount = new Account(depositId, depositAccount, depositMoney);
                 // 계좌배열에 추가 후 인덱스 증가
                 accounts[addUserIndex++] = newAccount;
 
-                System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].balance + "원\n");
+                System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].getBalance() + "원\n");
                 break;
             }else{
                 System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
@@ -86,7 +86,10 @@ public class Account {
                 // 계좌배열에 추가 후 인덱스 증가
                 accounts[addUserIndex++] = newAccount;
 
-                System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + (accounts[targetUserIndex].balance-withdrawMoney) + "원");
+                double calculate = accounts[targetUserIndex].balance - withdrawMoney;
+                setBalance(calculate);
+
+                System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].getBalance() + "원");
                 break;
             }else{
                 System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
@@ -94,11 +97,24 @@ public class Account {
         }
     }
 
+    // 잔액 조회 메소드
     public void searchMyBalance(){
-        System.out.print("조회할 계좌번호를 입력해주세요.");
-        String searchAccount = sc.next();
 
-        System.out.println("입력하신 계좌[" + searchAccount + "]의 잔액은 []원입니다");
+        int targetUserIndex = 0;
+
+        outter: while(true){
+            System.out.print("조회할 계좌번호를 입력해주세요 : ");
+            String searchAccount = sc.next();
+
+            for(int i = 0; i < accounts.length; i++){
+                if(accounts[i].userAccount.equals(searchAccount)){
+                    targetUserIndex = i;
+                    System.out.println("입력하신 계좌[" + searchAccount + "]의 잔액은 [" + accounts[targetUserIndex].getBalance() + "]원입니다");
+                    break outter;
+                }
+            }
+            System.out.println("입력하신 계좌가 존재하지 않습니다. 다시 입력해주세요.");
+        }
     }
 
     // =====생성자 Part=====
@@ -119,5 +135,37 @@ public class Account {
 
     public void setAddUserIndex(int addUserIndex) {
         this.addUserIndex = addUserIndex;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
