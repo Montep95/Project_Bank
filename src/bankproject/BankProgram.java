@@ -29,11 +29,6 @@ public class BankProgram {
 
     private static void moveToSystem(int i) {
         switch(i){
-            case 0: // Testcase : 현재 고객의 이름 및 아이디 정보 전체 출력
-                bank.printUser(); // Testcase : 현재 고객의 이름 정보 출력
-                bank.printId(); // Testcase : 현재 고객의 아이디 정보 출력
-                runProgram();
-
             case 1: // 고객 등록 (Bank 클래스)
                 bank.registerCustomer(); // 고객 등록 메소드 호출
 
@@ -62,7 +57,6 @@ public class BankProgram {
     private static void printSystemMenu() {
         System.out.println("\n=== 프리미엄 은행 ===");
         System.out.println("._._.[서비스 목록]._._.");
-        System.out.println("0. 고객 전체정보출력 - TESTCASE");
         System.out.println("1. 고객 등록");
         System.out.println("2. 계좌 생성");
         System.out.println("3. 입금 하기");

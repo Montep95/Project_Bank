@@ -17,7 +17,7 @@ public class Account {
     private String userAccount;
     private String userName;
     private String userId;
-    private int AddUserIndex = 0;
+    private int addUserIndex = 0;
 
     // =====Methods=====
     // 입금
@@ -47,7 +47,7 @@ public class Account {
                 // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
                 Account newAccount = new Account(depositId, depositAccount, depositMoney);
                 // 계좌배열에 추가 후 인덱스 증가
-                accounts[AddUserIndex++] = newAccount;
+                accounts[addUserIndex++] = newAccount;
 
                 System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].balance + "원\n");
                 break;
@@ -84,7 +84,7 @@ public class Account {
                 // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
                 Account newAccount = new Account(withdrawId, withdrawAccount, withdrawMoney);
                 // 계좌배열에 추가 후 인덱스 증가
-                accounts[AddUserIndex++] = newAccount;
+                accounts[addUserIndex++] = newAccount;
 
                 System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + (accounts[targetUserIndex].balance-withdrawMoney) + "원");
                 break;
@@ -114,10 +114,10 @@ public class Account {
 
     // =====Getter/Setter Part=====
     public int getAddUserIndex() {
-        return AddUserIndex;
+        return addUserIndex;
     }
 
     public void setAddUserIndex(int addUserIndex) {
-        AddUserIndex = addUserIndex;
+        this.addUserIndex = addUserIndex;
     }
 }

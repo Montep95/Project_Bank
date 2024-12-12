@@ -15,8 +15,6 @@ public class Bank {
     static Scanner sc = new Scanner(System.in);
 
     // 필드 생성 Part-----
-    private String[] allUserId; // 모든 고객 아이디 저장 배열
-    private String[] allUserName; // 모든 고객 이름 저장 배열
 
     // =====Methods=====
 
@@ -50,15 +48,5 @@ public class Bank {
     // 고객 찾기 메소드 (=고객 정보 조회)
     public void findCustomer(String id){
 
-    }
-
-    // TESTCASE : 고객 이름 전체 출력 메소드
-    public void printUser(){
-        System.out.println(allUserName);
-    }
-
-    // TESTCASE : 고객 Id 전체 출력 메소드
-    public void printId(){
-        System.out.println(allUserId);
     }
 }
