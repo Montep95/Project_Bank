@@ -49,6 +49,14 @@ public class BankProgram {
             case 4: // 출금 하기 (Account 클래스)
                 account.withdraw(); // 출금하기 메소드 호출
                 runProgram();
+
+            case 5: // 잔액 조회 (Account 클래스)
+                account.searchMyBalance(); // 잔액조회 메소드 호출
+                runProgram();
+
+            case 6: // 종료하기 (System.exit(0))
+                System.out.println("프로그램을 종료합니다.");
+                System.exit(0);
         }
     }
     private static void printSystemMenu() {
