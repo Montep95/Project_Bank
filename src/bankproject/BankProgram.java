@@ -18,7 +18,6 @@ public class BankProgram {
         계좌 생성: 고객이 새로운 통장을 생성합니다.
         예외 처리: 잘못된 입력이나 오류 상황에 대해 사용자에게 적절한 메시지를 출력합니다.
          */
-
         runProgram();
     }
 
@@ -43,6 +42,13 @@ public class BankProgram {
                 customer.addAccount(); // 계좌 생성 메소드 호출
                 runProgram();
 
+            case 3: // 입금 하기 (Account 클래스)
+                account.deposit(); // 입금하기 메소드 호출
+                runProgram();
+
+            case 4: // 출금 하기 (Account 클래스)
+                account.withdraw(); // 출금하기 메소드 호출
+                runProgram();
         }
     }
     private static void printSystemMenu() {

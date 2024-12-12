@@ -49,11 +49,7 @@ public class Bank {
 
     // 고객 찾기 메소드 (=고객 정보 조회)
     public void findCustomer(String id){
-        for(int i = 0; i < customers.length; i++){
-            if(customers[i].getUserID().equals(id)){
 
-            }
-        }
     }
 
     // TESTCASE : 고객 이름 전체 출력 메소드

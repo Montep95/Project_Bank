@@ -23,15 +23,17 @@ public class Customer {
     // 계좌 추가 메소드
     public void addAccount(){
         while(true){
-            System.out.println("고객 ID 입력 : ");
+            System.out.print("고객 ID 입력 : ");
 
             // 은행에 등록된 아이디인지 확인
             boolean isBankId = bank.existsUserId(sc.nextLine()); // 고객 중복 확인 메소드 호출
             if(isBankId){
-                System.out.println("새 계좌 번호 입력 : ");
+                System.out.print("새 계좌 번호 입력 : ");
 
                 // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
                 Account newAccount = new Account(userID, sc.nextLine(), 0);
+                Account.accounts[account.getAddUserIndex()] = newAccount;
+
                 System.out.println("계좌가 성공적으로 생성되었습니다!");
                 break;
             }else{
