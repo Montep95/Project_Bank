@@ -14,8 +14,6 @@ public class Bank {
     static Account account = new Account();
     static Scanner sc = new Scanner(System.in);
 
-    // 필드 생성 Part-----
-
     // =====Methods=====
 
     // 고객 등록 메소드
@@ -31,18 +29,15 @@ public class Bank {
 
         System.out.println("고객이 성공적으로 등록되었습니다.");
 
-        // BankProgram.runProgram(); // static 메소드 바로 접근
+
     }
 
     // 고객ID가 은행에 등록되어있는지 확인하는 메소드
     public boolean existsUserId(String id) {
-        // 리팩토링 중.. [12-12 22:17]
-
         // 은행에 등록된 id이면, true 리턴
         if (customers[customerIndex].getUserID().equals(id)) {
             return true;
         }
-
         // 은행에 등록되지 않은 id이면, false리턴
         return false;
     }
@@ -90,4 +85,13 @@ public class Bank {
 //        System.out.println("계좌 : " + Account.accounts[targetUserIndex].getUserAccount());
 //        System.out.println("잔액 : " + Account.accounts[targetUserIndex].getBalance());
 //    }
+
+// registerCustomer 메소드
+// <더미코드>
+// 두번째 고객부터의 조건문
+//        if(customers[customerIndex].getUserID() != null){
+//            System.out.println(customers[customerIndex].getUserID() + "의 유저가 존재하므로 인덱싱 값을 늘립니다.");
+//            customerIndex++;
+//        }
+// BankProgram.runProgram(); // static 메소드 바로 접근
 

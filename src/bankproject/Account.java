@@ -56,26 +56,6 @@ public class Account {
                 System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
             }
 
-                // 리팩토링 이전 코드
-//                for(int i = 0; i < accounts.length; i++){
-//                    if(accounts[i].userAccount.equals(depositAccount)){
-//                        System.out.print("입금 금액 입력 : ");
-//                        depositMoney = sc.nextInt();
-//                        targetUserIndex = i;
-//                        break;
-//                    }
-//                }
-
-//                // {입금 고객 아이디, 입금 계좌번호, 입금할 금액} 을 Account에 전달
-//                Account newAccount = new Account(depositId, depositAccount, depositMoney);
-//                // 계좌배열에 추가 후 인덱스 증가
-//                accounts[addUserIndex++] = newAccount;
-//
-//                System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].getBalance() + "원\n");
-//                break;
-//            }else{
-//                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
-//            }
         }
     }
 
@@ -115,42 +95,6 @@ public class Account {
             }
         }
     }
-//        while(true){
-//            System.out.print("고객 ID 입력 : ");
-//            String withdrawId = sc.next();
-//
-//            // 은행에 등록된 아이디인지 확인
-//            boolean isBankId = bank.existsUserId(withdrawId); // 존재하는 고객인지 확인하는 메소드 호출
-//            double withdrawMoney = 0;
-//            int targetUserIndex = 0;
-//
-//            if(isBankId){
-//                System.out.print("계좌 번호 입력 : ");
-//                String withdrawAccount = sc.next();
-//
-//                for(int i = 0; i < accounts.length; i++){
-//                    if(accounts[i].userAccount.equals(withdrawAccount)){
-//                        System.out.print("출금 금액 입력 : ");
-//                        withdrawMoney = sc.nextInt();
-//                        targetUserIndex = i;
-//                        break;
-//                    }
-//                }
-//
-//                // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
-//                Account newAccount = new Account(withdrawId, withdrawAccount, withdrawMoney);
-//                // 계좌배열에 추가 후 인덱스 증가
-//                accounts[addUserIndex++] = newAccount;
-//
-//                double calculate = accounts[targetUserIndex].balance - withdrawMoney;
-//                setBalance(calculate);
-//
-//                System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].getBalance() + "원");
-//                break;
-//            }else{
-//                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
-//            }
-//        }
 
     // 잔액 조회 메소드
     public void searchMyBalance(){
@@ -224,3 +168,64 @@ public class Account {
         this.userId = userId;
     }
 }
+
+
+// deposit() 메소드 더미코드
+// 리팩토링 이전 코드
+//                for(int i = 0; i < accounts.length; i++){
+//                    if(accounts[i].userAccount.equals(depositAccount)){
+//                        System.out.print("입금 금액 입력 : ");
+//                        depositMoney = sc.nextInt();
+//                        targetUserIndex = i;
+//                        break;
+//                    }
+//                }
+
+//                // {입금 고객 아이디, 입금 계좌번호, 입금할 금액} 을 Account에 전달
+//                Account newAccount = new Account(depositId, depositAccount, depositMoney);
+//                // 계좌배열에 추가 후 인덱스 증가
+//                accounts[addUserIndex++] = newAccount;
+//
+//                System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].getBalance() + "원\n");
+//                break;
+//            }else{
+//                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
+//            }
+
+// withdraw 메소드 더미코드
+//        while(true){
+//            System.out.print("고객 ID 입력 : ");
+//            String withdrawId = sc.next();
+//
+//            // 은행에 등록된 아이디인지 확인
+//            boolean isBankId = bank.existsUserId(withdrawId); // 존재하는 고객인지 확인하는 메소드 호출
+//            double withdrawMoney = 0;
+//            int targetUserIndex = 0;
+//
+//            if(isBankId){
+//                System.out.print("계좌 번호 입력 : ");
+//                String withdrawAccount = sc.next();
+//
+//                for(int i = 0; i < accounts.length; i++){
+//                    if(accounts[i].userAccount.equals(withdrawAccount)){
+//                        System.out.print("출금 금액 입력 : ");
+//                        withdrawMoney = sc.nextInt();
+//                        targetUserIndex = i;
+//                        break;
+//                    }
+//                }
+//
+//                // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
+//                Account newAccount = new Account(withdrawId, withdrawAccount, withdrawMoney);
+//                // 계좌배열에 추가 후 인덱스 증가
+//                accounts[addUserIndex++] = newAccount;
+//
+//                double calculate = accounts[targetUserIndex].balance - withdrawMoney;
+//                setBalance(calculate);
+//
+//                System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].getBalance() + "원");
+//                break;
+//            }else{
+//                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
+//            }
+//        }
