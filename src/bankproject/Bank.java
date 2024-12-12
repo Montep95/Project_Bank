@@ -8,8 +8,8 @@ import java.util.Scanner;
  */
 public class Bank {
     // 객체 생성 Part-----
-    static Customer[] customers = new Customer[100];
-    Customer bankCustomers = new Customer();
+    static Customer[] customers = new Customer[10];
+    Customer customer = new Customer();
     static int customerIndex = 0;
     static Account account = new Account();
     static Scanner sc = new Scanner(System.in);
@@ -27,7 +27,7 @@ public class Bank {
         String userInputName = sc.nextLine();
 
         Customer customer = new Customer(userInputID, userInputName);
-        customers[customerIndex++] = customer;
+        customers[customerIndex] = customer;
 
         System.out.println("고객이 성공적으로 등록되었습니다.");
 
@@ -35,8 +35,27 @@ public class Bank {
     }
 
     // 고객ID가 은행에 등록되어있는지 확인하는 메소드
-    public boolean existsUserId(String id){
-        return true;
+    public boolean existsUserId(String id) {
+        // 리팩토링 중.. [12-12 22:17]
+
+        // 은행에 등록된 id이면, true 리턴
+        if (customers[customerIndex].getUserID().equals(id)) {
+            return true;
+        }
+
+        // 은행에 등록되지 않은 id이면, false리턴
+        return false;
+    }
+}
+
+//        System.out.println("NAME : " + customers[customerIndex].getUserName());
+//        if(customers[0].getUserAccount() == null){
+//            System.out.println("ACCOUNT : 비어있습니다.");
+//        }
+//
+//        return true;
+
+        //        System.out.println("ID : " + customer.getUserID()); // null값
 
         // 리팩토링 중... [12-12 21:14]
 //        // 고객 정보를 순회하면서 null값이 아닌 값이 있으면 그 해당 배열의 인덱스를 저장
@@ -51,7 +70,6 @@ public class Bank {
 //            return true;
 //        }
 //        return false; // 존재하지 않는 ID면 false리턴
-    }
 
 //    // 고객 조회 메소드
 //    public void findCustomer(String id) {
@@ -72,4 +90,4 @@ public class Bank {
 //        System.out.println("계좌 : " + Account.accounts[targetUserIndex].getUserAccount());
 //        System.out.println("잔액 : " + Account.accounts[targetUserIndex].getBalance());
 //    }
-}
+

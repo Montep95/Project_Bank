@@ -24,15 +24,18 @@ public class Customer {
     public void addAccount(){
         while(true){
             System.out.print("고객 ID 입력 : ");
+            String userInputId = sc.next();
 
             // 1) 은행에 등록된 아이디인지 확인
-            boolean isBankId = bank.existsUserId(sc.nextLine()); // 고객 중복 확인 메소드 호출
+            boolean isBankId = bank.existsUserId(userInputId); // 고객 중복 확인 메소드 호출
             if(isBankId){
                 System.out.print("새 계좌 번호 입력 : ");
+                String userInputAccount = sc.next();
 
                 // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
-                Account newAccount = new Account(userID, sc.nextLine(), 0);
-                Account.accounts[account.getAddUserIndex()] = newAccount;
+                Account newAccount = new Account(userID, userInputAccount, 0);
+                Account.accounts[Bank.customerIndex] = newAccount;
+//                Account.accounts[account.getAddUserIndex()] = newAccount; // before
 
                 System.out.println("계좌가 성공적으로 생성되었습니다!");
                 break;
@@ -66,9 +69,9 @@ public class Customer {
     // 기본생성자
     public Customer() { }
 
-    public Customer(String userName, String userID) {
-        this.userName = userName;
+    public Customer(String userID, String userName) {
         this.userID = userID;
+        this.userName = userName;
     }
 
     public String getUserName() {
