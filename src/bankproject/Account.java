@@ -22,7 +22,7 @@ public class Account {
     // =====Methods=====
     // 입금
     public void deposit(){
-        while(true){
+        outter: while(true){
             System.out.print("고객 ID 입력 : ");
             String depositId = sc.next();
 
@@ -31,29 +31,31 @@ public class Account {
             double depositMoney = 0;
             int targetUserIndex = 0;
 
-            if(isBankId){
-                System.out.print("계좌 번호 입력 : ");
-                String depositAccount = sc.next();
+            while(true){
+                if(isBankId){
+                    System.out.print("계좌 번호 입력 : ");
+                    String depositAccount = sc.next();
 
-                // 리팩토링 [24-12-12 22:44}
-                if(depositAccount.equals(accounts[Bank.customerIndex].getUserAccount())){
-                    System.out.print("입금 금액 입력 : ");
-                    depositMoney = sc.nextDouble();
+                    // 리팩토링 [24-12-12 22:44}
+                    if(depositAccount.equals(accounts[Bank.customerIndex].getUserAccount())){
+                        System.out.print("입금 금액 입력 : ");
+                        depositMoney = sc.nextDouble();
 
-                    // {입금 고객 아이디, 입금 계좌번호, 입금할 금액} 을 Account에 전달
-                    Account newAccount = new Account(depositId, depositAccount, depositMoney);
+                        // {입금 고객 아이디, 입금 계좌번호, 입금할 금액} 을 Account에 전달
+                        Account newAccount = new Account(depositId, depositAccount, depositMoney);
 
-                    accounts[Bank.customerIndex] = newAccount;
+                        accounts[Bank.customerIndex] = newAccount;
 
-                    System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[Bank.customerIndex].getBalance() + "원\n");
-                    break;
+                        System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[Bank.customerIndex].getBalance() + "원\n");
+                        break outter;
+                    }else{
+                        System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
+                    }
+
+
                 }else{
-                    System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
+                    System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
                 }
-
-
-            }else{
-                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
             }
 
         }
@@ -70,35 +72,34 @@ public class Account {
             double withdrawMoney = 0;
             int targetUserIndex = 0;
 
-            if (isBankId) {
-                System.out.print("계좌 번호 입력 : ");
-                String withdrawAccount = sc.next();
+            outter: while(true){
+                if (isBankId) {
+                    System.out.print("계좌 번호 입력 : ");
+                    String withdrawAccount = sc.next();
 
-                // 리팩토링 [24-12-12 22:44}
-                if (withdrawAccount.equals(accounts[Bank.customerIndex].getUserAccount())) {
-                    System.out.print("출금 금액 입력 : ");
-                    withdrawMoney = sc.nextDouble();
+                    // 리팩토링 [24-12-12 22:44}
+                    if (withdrawAccount.equals(accounts[Bank.customerIndex].getUserAccount())) {
+                        System.out.print("출금 금액 입력 : ");
+                        withdrawMoney = sc.nextDouble();
 
-                    double updateMoney = accounts[Bank.customerIndex].getBalance();
-                    updateMoney -= withdrawMoney;
-                    accounts[Bank.customerIndex].setBalance(updateMoney);
+                        double updateMoney = accounts[Bank.customerIndex].getBalance();
+                        updateMoney -= withdrawMoney;
+                        accounts[Bank.customerIndex].setBalance(updateMoney);
 
-                    System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + accounts[Bank.customerIndex].getBalance() + "원\n");
-                    break;
+                        System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + accounts[Bank.customerIndex].getBalance() + "원\n");
+                        break outter;
+                    } else {
+                        System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
+                    }
                 } else {
-                    System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
+                    System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
                 }
-
-
-            } else {
-                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
             }
         }
     }
 
     // 잔액 조회 메소드
     public void searchMyBalance(){
-
         int targetUserIndex = 0;
 
         outter: while(true){

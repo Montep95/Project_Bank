@@ -25,23 +25,31 @@ public class Bank {
         String userInputName = sc.nextLine();
 
         Customer customer = new Customer(userInputID, userInputName);
-        customers[customerIndex] = customer;
+        customers[customerIndex++] = customer;
 
         System.out.println("고객이 성공적으로 등록되었습니다.");
-
-
     }
 
     // 고객ID가 은행에 등록되어있는지 확인하는 메소드
     public boolean existsUserId(String id) {
-        // 은행에 등록된 id이면, true 리턴
-        if (customers[customerIndex].getUserID().equals(id)) {
-            return true;
+        for(int i = 0; i < customerIndex; i++){
+            if (customers[i] != null && customers[i].getUserID().equals(id)) {
+                return true;
+            }
         }
         // 은행에 등록되지 않은 id이면, false리턴
         return false;
     }
 }
+
+        // 리팩토링 이전 코드 [24-12-13 12:38]
+//        // 은행에 등록된 id이면, true 리턴
+//        if (customers[customerIndex].getUserID().equals(id)) {
+//            return true;
+//        }
+//        // 은행에 등록되지 않은 id이면, false리턴
+//        return false;
+
 
 //        System.out.println("NAME : " + customers[customerIndex].getUserName());
 //        if(customers[0].getUserAccount() == null){
