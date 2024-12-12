@@ -30,7 +30,7 @@ public class Account {
 
             // 은행에 등록된 아이디인지 확인
             boolean isBankId = bank.existsUserId(depositId); // 존재하는 고객인지 확인하는 메소드 호출
-            int depositMoney = 0;
+            double depositMoney = 0;
             int targetUserIndex = 0;
 
             if(isBankId){
@@ -51,7 +51,7 @@ public class Account {
                 // 계좌배열에 추가 후 인덱스 증가
                 accounts[AddUserIndex++] = newAccount;
 
-                System.out.println(String.format("%.1f" + depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].balance + "원");
+                System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[targetUserIndex].balance + "원");
                 break;
             }else{
                 System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
@@ -61,7 +61,40 @@ public class Account {
 
     // 출금
     public void withdraw(){
+        while(true){
+            System.out.print("고객 ID 입력 : ");
 
+            String withdrawId = sc.nextLine();
+
+            // 은행에 등록된 아이디인지 확인
+            boolean isBankId = bank.existsUserId(withdrawId); // 존재하는 고객인지 확인하는 메소드 호출
+            double withdrawMoney = 0;
+            int targetUserIndex = 0;
+
+            if(isBankId){
+                System.out.print("계좌 번호 입력 : ");
+                String withdrawAccount = sc.nextLine();
+
+                for(int i = 0; i < accounts.length; i++){
+                    if(accounts[i].userAccount.equals(withdrawAccount)){
+                        System.out.print("출금 금액 입력 : ");
+                        withdrawMoney = sc.nextInt();
+                        targetUserIndex = i;
+                        break;
+                    }
+                }
+
+                // 고객 아이디와, 입력받은 계좌번호를 Account에 전달, 새 계좌 잔액은 0원으로 전달
+                Account newAccount = new Account(withdrawId, withdrawAccount, withdrawMoney);
+                // 계좌배열에 추가 후 인덱스 증가
+                accounts[AddUserIndex++] = newAccount;
+
+                System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + (accounts[targetUserIndex].balance-withdrawMoney) + "원");
+                break;
+            }else{
+                System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
+            }
+        }
     }
 
     // =====생성자 Part=====
