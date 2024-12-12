@@ -3,7 +3,6 @@ package bankproject;
 import java.util.Scanner;
 
 public class BankProgram {
-
     // 객체 생성 Part-----
     static Bank bank = new Bank();
     static Customer customer = new Customer();
@@ -38,7 +37,6 @@ public class BankProgram {
 
             case 1: // 고객 등록 (Bank 클래스)
                 bank.registerCustomer(); // 고객 등록 메소드 호출
-                runProgram();
 
 
             case 2: // 계좌 생성 (Customer 클래스)
