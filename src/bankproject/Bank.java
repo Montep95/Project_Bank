@@ -18,6 +18,12 @@ public class Bank {
 
     // 고객 등록 메소드
     public void registerCustomer(){
+        // 추가된 기능
+        if(customerIndex >= customers.length){
+            System.out.println("더 이상 고객을 등록할 수 없습니다.");
+            return;
+        }
+
         System.out.print("고객의 ID를 입력해주세요 : ");
         String userInputID = sc.nextLine();
 

@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Account {
     // 객체 생성 Part-----
-    static Account[] accounts = new Account[500];
+    static Account[] accounts = new Account[50];
     static Bank bank = new Bank();
     static Scanner sc = new Scanner(System.in);
 
@@ -62,13 +62,10 @@ public class Account {
                         throw new AccountNotFoundException("입력하신 계좌가 존재하지 않습니다.");
                         // System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
                     }
-
-
                 }else{
                     System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
                 }
             }
-
         }
     }
 
@@ -126,10 +123,13 @@ public class Account {
             System.out.print("조회할 계좌번호를 입력해주세요 : ");
             String searchAccount = sc.next();
 
-            for(int i = 0; i < accounts.length; i++){
+            // 기능 수정 = 인덱싱 accounts.length -> Bank.customerIndex
+            for(int i = 0; i < Bank.customerIndex; i++){
                 if(accounts[i].userAccount.equals(searchAccount)){
                     targetUserIndex = i;
-                    System.out.println("입력하신 계좌[" + searchAccount + "]의 잔액은 [" + accounts[targetUserIndex].getBalance() + "]원입니다");
+
+                    // 기능 수정 = 인덱싱 accounts.length -> Bank.customerIndex
+                    System.out.println("입력하신 계좌[" + searchAccount + "]의 잔액은 [" + accounts[Bank.customerIndex].getBalance() + "]원입니다");
                     break outter;
                 }
             }

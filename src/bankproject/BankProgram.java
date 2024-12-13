@@ -10,7 +10,7 @@ public class BankProgram {
     static Bank bank = new Bank();
     static Customer customer = new Customer();
     static Account account = new Account();
-    static Scanner sc = new Scanner(System.in);;
+    static Scanner sc = new Scanner(System.in);
 
     // =====Methods=====
     public static void main(String[] args) throws Exception{
@@ -69,7 +69,7 @@ public class BankProgram {
     }
     private static void printSystemMenu() {
         System.out.println("\n======*[Premium Bank]*======");
-        System.out.println("       < Choose a menu >");
+        System.out.println("       <Choose a menu>");
         System.out.println("1. 고객 등록");
         System.out.println("2. 계좌 생성");
         System.out.println("3. 입금 하기");

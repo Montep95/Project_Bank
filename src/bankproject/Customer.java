@@ -18,17 +18,25 @@ public class Customer {
     private String userAccount;
 
     // [추가된 기능] Part-----
+    private Account[] accounts; // 계좌배열
+    private int accountCount; // 현재 고객의 계좌 개수
 
     // =====Methods=====
     // 계좌 추가 메소드
     public void addAccount(){
-        while(true){
+        outter: while(true){
             System.out.print("고객 ID 입력 : ");
             String userInputId = sc.next();
 
             // 1) 은행에 등록된 아이디인지 확인
             boolean isBankId = bank.existsUserId(userInputId); // 고객 중복 확인 메소드 호출
             if(isBankId){
+                // 추가된 기능
+                if(accountCount >= 5){
+                    System.out.println("계좌가 최대 5개가 만들어져있습니다. 생성 불가");
+                    break outter;
+                }
+
                 System.out.print("새 계좌 번호 입력 : ");
                 String userInputAccount = sc.next();
 
@@ -36,11 +44,16 @@ public class Customer {
                 Account newAccount = new Account(userID, userInputAccount, 0);
                 Account.accounts[Bank.customerIndex] = newAccount;
 
+                // 추가된 기능
+                accountCount++; // 계좌 저장 후에는 개수 증가
+
                 System.out.println("계좌가 성공적으로 생성되었습니다!");
                 break;
             }else{
                 System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
             }
+            // Todo : 일정된 형식의 계좌 번호 입력받기 구현
+            // Todo : 한 ID당 계좌 생성 5개 제한 구현 (85%)
         }
     }
 
@@ -55,6 +68,10 @@ public class Customer {
     public Customer(String userID, String userName) {
         this.userID = userID;
         this.userName = userName;
+
+        // 추가된 기능
+        this.accounts = new Account[5]; // 최대 5개의 계좌
+        this.accountCount = 0;
     }
 
     public String getUserName() {
