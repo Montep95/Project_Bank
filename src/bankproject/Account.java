@@ -1,5 +1,8 @@
 package bankproject;
 
+import bankproject.exception.AccountNotFoundException;
+import bankproject.exception.InvalidTransactionException;
+
 import java.util.Scanner;
 
 /*
@@ -21,7 +24,7 @@ public class Account {
 
     // =====Methods=====
     // 입금
-    public void deposit(){
+    public void deposit() throws Exception{
         outter: while(true){
             System.out.print("고객 ID 입력 : ");
             String depositId = sc.next();
@@ -41,6 +44,11 @@ public class Account {
                         System.out.print("입금 금액 입력 : ");
                         depositMoney = sc.nextDouble();
 
+                        // 입금 [음수입력] 예외처리
+                        if(depositMoney < 0){
+                            throw new InvalidTransactionException("잘못된 입금액입니다.");
+                        }
+
                         // {입금 고객 아이디, 입금 계좌번호, 입금할 금액} 을 Account에 전달
                         Account newAccount = new Account(depositId, depositAccount, depositMoney);
 
@@ -49,7 +57,10 @@ public class Account {
                         System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[Bank.customerIndex].getBalance() + "원\n");
                         break outter;
                     }else{
-                        System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
+
+                        // 계좌번호 조회 시 존재하지 않는 예외처리
+                        throw new AccountNotFoundException("입력하신 계좌가 존재하지 않습니다.");
+                        // System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
                     }
 
 
@@ -62,7 +73,7 @@ public class Account {
     }
 
     // 출금
-    public void withdraw() {
+    public void withdraw() throws Exception {
         while (true) {
             System.out.print("고객 ID 입력 : ");
             String withdrawId = sc.next();
@@ -83,13 +94,22 @@ public class Account {
                         withdrawMoney = sc.nextDouble();
 
                         double updateMoney = accounts[Bank.customerIndex].getBalance();
+
+                        // 출금 [잔액부족] 예외처리
+                        if(updateMoney < withdrawMoney){
+                            throw new InvalidTransactionException("잔액이 부족합니다.");
+                        }
+
                         updateMoney -= withdrawMoney;
                         accounts[Bank.customerIndex].setBalance(updateMoney);
 
                         System.out.println(String.format("%.1f", withdrawMoney) + "원이 출금되었습니다. 현재 잔액 : " + accounts[Bank.customerIndex].getBalance() + "원\n");
                         break outter;
                     } else {
-                        System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
+
+                        // 계좌번호 조회 시 존재하지 않는 예외처리
+                        throw new AccountNotFoundException("입력하신 계좌가 존재하지 않습니다.");
+                        //System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
                     }
                 } else {
                     System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
@@ -99,7 +119,7 @@ public class Account {
     }
 
     // 잔액 조회 메소드
-    public void searchMyBalance(){
+    public void searchMyBalance() throws AccountNotFoundException{
         int targetUserIndex = 0;
 
         outter: while(true){
@@ -113,7 +133,10 @@ public class Account {
                     break outter;
                 }
             }
-            System.out.println("입력하신 계좌가 존재하지 않습니다. 다시 입력해주세요.");
+
+            // 계좌번호 조회 시 존재하지 않는 예외처리
+            throw new AccountNotFoundException("입력하신 계좌가 존재하지 않습니다. 다시 입력해주세요.");
+            //System.out.println("존재하지 않는 계좌번호입니다. 다시 입력해주세요");
         }
     }
 

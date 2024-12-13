@@ -1,5 +1,8 @@
 package bankproject;
 
+import bankproject.exception.AccountNotFoundException;
+import bankproject.exception.InvalidTransactionException;
+
 import java.util.Scanner;
 
 public class BankProgram {
@@ -32,15 +35,31 @@ public class BankProgram {
                 runProgram();
 
             case 3: // 입금 하기 (Account 클래스)
-                account.deposit(); // 입금하기 메소드 호출
+                try{
+                    account.deposit(); // 입금하기 메소드 호출
+                }catch(InvalidTransactionException e){
+                    e.printStackTrace(); // 잘못된 입출금 요청 에외처리
+                }catch(AccountNotFoundException e){
+                    e.printStackTrace(); // 존재하지 않는 계좌 요청 예외처리
+                }
                 runProgram();
 
             case 4: // 출금 하기 (Account 클래스)
-                account.withdraw(); // 출금하기 메소드 호출
+                try{
+                    account.withdraw(); // 출금하기 메소드 호출
+                }catch(InvalidTransactionException e){
+                    e.printStackTrace(); // 잘못된 입출금 요청 에외처리
+                }catch(AccountNotFoundException e){
+                    e.printStackTrace(); // 존재하지 않는 계좌 요청 예외처리
+                }
                 runProgram();
 
             case 5: // 잔액 조회 (Account 클래스)
-                account.searchMyBalance(); // 잔액조회 메소드 호출
+                try{
+                    account.searchMyBalance(); // 잔액조회 메소드 호출
+                }catch(AccountNotFoundException e){
+                    e.printStackTrace(); // 존재하지 않는 계좌 요청 예외처리
+                }
                 runProgram();
 
             case 6: // 종료하기 (System.exit(0))
