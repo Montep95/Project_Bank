@@ -1,5 +1,7 @@
 package bankproject;
 
+import bankproject.exception.BankOperationException;
+
 import java.util.Scanner;
 
 /*
@@ -23,7 +25,7 @@ public class Customer {
 
     // =====Methods=====
     // 계좌 추가 메소드
-    public void addAccount(){
+    public void addAccount()throws BankOperationException{
         outter: while(true){
             System.out.print("고객 ID 입력 : ");
             String userInputId = sc.next();
@@ -33,9 +35,8 @@ public class Customer {
             if(isBankId){
                 // 추가된 기능
                 if(accountCount >= 5){
-                    System.out.println("계좌가 최대 5개가 만들어져있습니다. 생성 불가");
-                    break outter;
-                }
+                    throw new BankOperationException("계좌가 최대 5개가 만들어져있습니다. 생성 불가");
+                } // Todo : BankOperationException 예외처리 (90%)
 
                 System.out.print("새 계좌 번호 입력 : ");
                 String userInputAccount = sc.next();
@@ -52,7 +53,7 @@ public class Customer {
             }else{
                 System.out.println("존재하지 않는 ID입니다. 다시 입력해주세요.");
             }
-            // Todo : 일정된 형식의 계좌 번호 입력받기 구현
+            // Todo : 일정된 형식의 계좌 번호 입력받기 구현 필요
             // Todo : 한 ID당 계좌 생성 5개 제한 구현 (85%)
         }
     }

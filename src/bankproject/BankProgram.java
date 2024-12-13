@@ -1,7 +1,9 @@
 package bankproject;
 
 import bankproject.exception.AccountNotFoundException;
+import bankproject.exception.BankOperationException;
 import bankproject.exception.InvalidTransactionException;
+import bankproject.exception.InvalidUserInputException;
 
 import java.util.Scanner;
 
@@ -20,7 +22,13 @@ public class BankProgram {
     public static void runProgram() throws Exception{
         printSystemMenu();
         System.out.print("이용하실 서비스를 입력해주세요 : ");
-        moveToSystem(sc.nextInt());
+        try{
+            moveToSystem(sc.nextInt());
+        }catch(InvalidUserInputException e){
+            System.out.println(e.getMessage());
+        }catch(Exception e){
+            System.out.println("[예외처리] 숫자만 입력해주세요.");
+        }
     }
 
     private static void moveToSystem(int i) throws Exception{
@@ -31,7 +39,11 @@ public class BankProgram {
 
 
             case 2: // 계좌 생성 (Customer 클래스)
-                customer.addAccount(); // 계좌 생성 메소드 호출
+                try{
+                    customer.addAccount(); // 계좌 생성 메소드 호출
+                }catch(BankOperationException e){
+                    System.out.println(e.getMessage()); // 계좌 등록 최대 개수 초과 예외처리
+                }
                 runProgram();
 
             case 3: // 입금 하기 (Account 클래스)
@@ -65,6 +77,9 @@ public class BankProgram {
             case 6: // 종료하기 (System.exit(0))
                 System.out.println("프로그램을 종료합니다.");
                 System.exit(0);
+
+            default: // [고객입력오류] 예외처리
+                throw new InvalidUserInputException("[고객입력오류] 해당하는 메뉴가 없습니다.");
         }
     }
     private static void printSystemMenu() {

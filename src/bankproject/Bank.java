@@ -22,6 +22,8 @@ public class Bank {
         if(customerIndex >= customers.length){
             System.out.println("더 이상 고객을 등록할 수 없습니다.");
             return;
+
+            // Todo : BankOperationException 예외처리 필요
         }
 
         System.out.print("고객의 ID를 입력해주세요 : ");

@@ -124,6 +124,7 @@ public class Account {
             String searchAccount = sc.next();
 
             // 기능 수정 = 인덱싱 accounts.length -> Bank.customerIndex
+            // Todo : 잔액조회할 계좌번호 입력 시 "[예외처리] 숫자만 입력해주세요 발생" 해결
             for(int i = 0; i < Bank.customerIndex; i++){
                 if(accounts[i].userAccount.equals(searchAccount)){
                     targetUserIndex = i;
