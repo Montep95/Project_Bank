@@ -39,7 +39,7 @@ public class Account {
                     System.out.print("계좌 번호 입력 : ");
                     String depositAccount = sc.next();
 
-                    // 리팩토링 [24-12-12 22:44}
+                    // 리팩토링 [24-12-12 22:44]
                     if(depositAccount.equals(accounts[Bank.customerIndex].getUserAccount())){
                         System.out.print("입금 금액 입력 : ");
                         depositMoney = sc.nextDouble();
@@ -52,8 +52,12 @@ public class Account {
                         // {입금 고객 아이디, 입금 계좌번호, 입금할 금액} 을 Account에 전달
                         Account newAccount = new Account(depositId, depositAccount, depositMoney);
 
-                        // Todo : balance += depositMoney;
                         accounts[Bank.customerIndex] = newAccount;
+
+                        // 추가된 기능 Todo : balance += depositMoney;
+                        double updateMoney = accounts[Bank.customerIndex].getBalance();
+                        updateMoney += depositMoney;
+                        accounts[Bank.customerIndex].setBalance(updateMoney);
 
                         System.out.println(String.format("%.1f", depositMoney) + "원이 입금되었습니다. 현재 잔액 : " + accounts[Bank.customerIndex].getBalance() + "원\n");
                         break outter;
