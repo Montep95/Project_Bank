@@ -1,95 +1,140 @@
 package bankproject;
 
-import bankproject.exception.AccountNotFoundException;
-import bankproject.exception.BankOperationException;
-import bankproject.exception.InvalidTransactionException;
 import bankproject.exception.InvalidUserInputException;
 
 import java.util.Scanner;
 
 public class BankProgram {
-    // 객체 생성 Part-----
-    static Bank bank = new Bank();
-    static Customer customer = new Customer();
-    static Account account = new Account();
-    static Scanner sc = new Scanner(System.in);
+    private static Bank bank = new Bank(); // 은행 객체
+    private static Scanner sc = new Scanner(System.in);
 
-    // =====Methods=====
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         runProgram();
     }
 
-    public static void runProgram() throws Exception{
-        printSystemMenu();
-        System.out.print("이용하실 서비스를 입력해주세요 : ");
-        try{
-            moveToSystem(sc.nextInt());
-        }catch(InvalidUserInputException e){
-            System.out.println(e.getMessage());
-        }catch(Exception e){
-            System.out.println("[예외처리] 숫자만 입력해주세요.");
+    private static void runProgram() {
+        while (true) {
+            try {
+                printMenu();
+                int choice = sc.nextInt();
+                handleMenuChoice(choice);
+            } catch (Exception e) {
+                System.out.println("오류 발생: " + e.getMessage());
+                sc.nextLine(); // 버퍼 비우기
+            }
         }
     }
 
-    private static void moveToSystem(int i) throws Exception{
-        switch(i){
-            case 1: // 고객 등록 (Bank 클래스)
-                bank.registerCustomer(); // 고객 등록 메소드 호출
-                runProgram();
-
-
-            case 2: // 계좌 생성 (Customer 클래스)
-                try{
-                    customer.addAccount(); // 계좌 생성 메소드 호출
-                }catch(BankOperationException e){
-                    System.out.println(e.getMessage()); // 계좌 등록 최대 개수 초과 예외처리
-                }
-                runProgram();
-
-            case 3: // 입금 하기 (Account 클래스)
-                try{
-                    account.deposit(); // 입금하기 메소드 호출
-                }catch(InvalidTransactionException e){
-                    e.printStackTrace(); // 잘못된 입출금 요청 에외처리
-                }catch(AccountNotFoundException e){
-                    e.printStackTrace(); // 존재하지 않는 계좌 요청 예외처리
-                }
-                runProgram();
-
-            case 4: // 출금 하기 (Account 클래스)
-                try{
-                    account.withdraw(); // 출금하기 메소드 호출
-                }catch(InvalidTransactionException e){
-                    e.printStackTrace(); // 잘못된 입출금 요청 에외처리
-                }catch(AccountNotFoundException e){
-                    e.printStackTrace(); // 존재하지 않는 계좌 요청 예외처리
-                }
-                runProgram();
-
-            case 5: // 잔액 조회 (Account 클래스)
-                try{
-                    account.searchMyBalance(); // 잔액조회 메소드 호출
-                }catch(AccountNotFoundException e){
-                    e.printStackTrace(); // 존재하지 않는 계좌 요청 예외처리
-                }
-                runProgram();
-
-            case 6: // 종료하기 (System.exit(0))
-                System.out.println("프로그램을 종료합니다.");
-                System.exit(0);
-
-            default: // [고객입력오류] 예외처리
-                throw new InvalidUserInputException("[고객입력오류] 해당하는 메뉴가 없습니다.");
-        }
-    }
-    private static void printSystemMenu() {
+    private static void printMenu() {
         System.out.println("\n======*[Premium Bank]*======");
-        System.out.println("       <Choose a menu>");
         System.out.println("1. 고객 등록");
         System.out.println("2. 계좌 생성");
         System.out.println("3. 입금 하기");
         System.out.println("4. 출금 하기");
         System.out.println("5. 잔액 조회");
-        System.out.println("6. 종    료\n");
+        System.out.println("6. 종료");
+        System.out.print("메뉴를 선택하세요: ");
+    }
+
+    // 메뉴 처리
+    private static void handleMenuChoice(int choice) throws Exception {
+        switch (choice) {
+            case 1 -> registerCustomer();
+            case 2 -> createAccount();
+            case 3 -> depositToAccount();
+            case 4 -> withdrawFromAccount();
+            case 5 -> checkBalance();
+            case 6 -> {
+                System.out.println("프로그램을 종료합니다.");
+                System.exit(0);
+            }
+            default -> throw new InvalidUserInputException("올바르지 않은 메뉴 선택입니다.");
+        }
+    }
+
+    // 1. 고객 등록
+    private static void registerCustomer() {
+        System.out.print("고객 ID 입력: ");
+        String userID = sc.next();
+        System.out.print("고객 이름 입력: ");
+        String userName = sc.next();
+        bank.registerCustomer(userID, userName);
+    }
+
+    // 2. 계좌 생성
+    private static void createAccount() throws Exception {
+        System.out.print("고객 ID 입력: ");
+        String userID = sc.next();
+        Customer customer = bank.findCustomerById(userID);
+
+        System.out.print("새 계좌 번호 입력: ");
+        String accountNumber = sc.next();
+
+        customer.addAccount(accountNumber);
+    }
+
+    // 3. 입금
+    private static void depositToAccount() throws Exception {
+        System.out.print("고객 ID 입력: ");
+        String userID = sc.next();
+        Customer customer = bank.findCustomerById(userID);
+
+        System.out.print("계좌 번호 입력: ");
+        String accountNumber = sc.next();
+
+        System.out.print("입금 금액 입력: ");
+        double amount = sc.nextDouble();
+
+        for (Account account : customer.getAccounts()) {
+            if (account != null && account.getAccountNumber().equals(accountNumber)) {
+                account.deposit(amount);
+                System.out.println("입금 성공! 현재 잔액: " + account.getBalance());
+                return;
+            }
+        }
+
+        throw new InvalidUserInputException("계좌를 찾을 수 없습니다.");
+    }
+
+    // 4. 출금
+    private static void withdrawFromAccount() throws Exception {
+        System.out.print("고객 ID 입력: ");
+        String userID = sc.next();
+        Customer customer = bank.findCustomerById(userID);
+
+        System.out.print("계좌 번호 입력: ");
+        String accountNumber = sc.next();
+
+        System.out.print("출금 금액 입력: ");
+        double amount = sc.nextDouble();
+
+        for (Account account : customer.getAccounts()) {
+            if (account != null && account.getAccountNumber().equals(accountNumber)) {
+                account.withdraw(amount);
+                System.out.println("출금 성공! 현재 잔액: " + account.getBalance());
+                return;
+            }
+        }
+
+        throw new InvalidUserInputException("계좌를 찾을 수 없습니다.");
+    }
+
+    // 5. 잔액 조회
+    private static void checkBalance() throws Exception {
+        System.out.print("고객 ID 입력: ");
+        String userID = sc.next();
+        Customer customer = bank.findCustomerById(userID);
+
+        System.out.print("계좌 번호 입력: ");
+        String accountNumber = sc.next();
+
+        for (Account account : customer.getAccounts()) {
+            if (account != null && account.getAccountNumber().equals(accountNumber)) {
+                System.out.println("현재 잔액: " + account.getBalance());
+                return;
+            }
+        }
+
+        throw new InvalidUserInputException("계좌를 찾을 수 없습니다.");
     }
 }
