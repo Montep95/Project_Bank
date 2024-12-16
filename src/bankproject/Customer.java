@@ -25,7 +25,7 @@ public class Customer {
         System.out.println("계좌가 성공적으로 생성되었습니다!");
     }
 
-    // 고객의 계좌 목록 확인
+    // 고객의 계좌 목록 확인, 호출하는 곳에 계좌들 반환
     public Account[] getAccounts() {
         return accounts;
     }

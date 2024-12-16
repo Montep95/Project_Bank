@@ -48,7 +48,7 @@ public class BankProgram {
                 System.out.println("프로그램을 종료합니다.");
                 System.exit(0);
             }
-            default -> throw new InvalidUserInputException("올바르지 않은 메뉴 선택입니다.");
+            default -> throw new InvalidUserInputException("[예외] 올바르지 않은 메뉴 선택입니다.");
         }
     }
 
@@ -65,7 +65,7 @@ public class BankProgram {
     private static void createAccount() throws Exception {
         System.out.print("고객 ID 입력: ");
         String userID = sc.next();
-        Customer customer = bank.findCustomerById(userID);
+        Customer customer = bank.existsUserId(userID);
 
         System.out.print("새 계좌 번호 입력: ");
         String accountNumber = sc.next();
@@ -77,7 +77,7 @@ public class BankProgram {
     private static void depositToAccount() throws Exception {
         System.out.print("고객 ID 입력: ");
         String userID = sc.next();
-        Customer customer = bank.findCustomerById(userID);
+        Customer customer = bank.existsUserId(userID);
 
         System.out.print("계좌 번호 입력: ");
         String accountNumber = sc.next();
@@ -88,19 +88,19 @@ public class BankProgram {
         for (Account account : customer.getAccounts()) {
             if (account != null && account.getAccountNumber().equals(accountNumber)) {
                 account.deposit(amount);
-                System.out.println("입금 성공! 현재 잔액: " + account.getBalance());
+                System.out.println("입금 성공! 현재 잔액: " + account.getBalance()); // 입금 현황 출력
                 return;
             }
         }
 
-        throw new InvalidUserInputException("계좌를 찾을 수 없습니다.");
+        throw new InvalidUserInputException("[예외] 계좌를 찾을 수 없습니다.");
     }
 
     // 4. 출금
     private static void withdrawFromAccount() throws Exception {
         System.out.print("고객 ID 입력: ");
         String userID = sc.next();
-        Customer customer = bank.findCustomerById(userID);
+        Customer customer = bank.existsUserId(userID);
 
         System.out.print("계좌 번호 입력: ");
         String accountNumber = sc.next();
@@ -111,7 +111,7 @@ public class BankProgram {
         for (Account account : customer.getAccounts()) {
             if (account != null && account.getAccountNumber().equals(accountNumber)) {
                 account.withdraw(amount);
-                System.out.println("출금 성공! 현재 잔액: " + account.getBalance());
+                System.out.println("출금 성공! 현재 잔액: " + account.getBalance()); // 출금 현황 출력
                 return;
             }
         }
@@ -123,11 +123,12 @@ public class BankProgram {
     private static void checkBalance() throws Exception {
         System.out.print("고객 ID 입력: ");
         String userID = sc.next();
-        Customer customer = bank.findCustomerById(userID);
+        Customer customer = bank.existsUserId(userID);
 
         System.out.print("계좌 번호 입력: ");
         String accountNumber = sc.next();
 
+        // 고객의 계좌들 중 입력한 계좌번호에 해당하는 계좌의 잔액을 호출 후 출력
         for (Account account : customer.getAccounts()) {
             if (account != null && account.getAccountNumber().equals(accountNumber)) {
                 System.out.println("현재 잔액: " + account.getBalance());
